@@ -1,22 +1,15 @@
 import { test, expect } from '@playwright/test';
 
-/**
- * Stsenaarium: Vigased sisselogimise andmed
- *
- * Algseis: Sisselogimislehel ei ole kasutajat sisse logitud.
- * Tegevus: Kasutaja sisestab olematu kasutajanime ja vale parooli ning
- * klikib nupule "Logi sisse".
- * Oodatav tulemus: Lehel kuvatakse hoiatus "Vale kasutajanimi või parool"
- * ning kasutaja ei pääse rakendusse.
- */
 test('login with invalid credentials displays an error', async ({ page }) => {
-  await page.goto('/login.php');
+  await page.goto('https://miroslavburdyga24.thkit.ee/content/PHP/content/Pitsa/login.php');
+  await page.waitForTimeout(2000);
+  
   const username = `nouser${Date.now()}`;
-  await page.fill('#login', username);
-  await page.fill('#pass', 'wrongpass');
-  await page.click('input[type="submit"][name="login_submit"]');
-  // Kontrolli, et kuvatakse veateade vigaste andmete kohta
-  await expect(page.locator('text=/vale kasutajanimi/i')).toBeVisible();
-  // Jää sisselogimislehele
+  await page.locator('input[name="login"], #login').fill(username);
+  await page.locator('input[name="pass"], #pass').fill('wrongpass');
+  await page.locator('input[type="submit"][name="login_submit"]').click();
+  await page.waitForTimeout(3000);
+  
+  await expect(page.locator('body')).toContainText(/vale kasutajanimi/i);
   await expect(page).toHaveURL(/login\.php/);
 });
