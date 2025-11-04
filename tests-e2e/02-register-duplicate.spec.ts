@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+/**
+* Stsenaarium: Registreerimine olemasoleva kasutajanimega
+*
+* Algolek: Kasutaja on süsteemis juba antud kasutajanimega registreeritud.
+* Toiming: Kasutaja proovib sama kasutajanimega uuesti registreeruda.
+* Oodatav tulemus: Esimene registreerimine õnnestub, teine ​​katse lükatakse tagasi teatega "Selline kasutajanimi on juba olemas!"
+*/
+
 test('registering with an existing username shows an error', async ({ page }) => {
   const username = `dup${Date.now()}`;
   const password = 'Password123!';
@@ -25,4 +33,5 @@ test('registering with an existing username shows an error', async ({ page }) =>
   await page.waitForTimeout(3000);
   
   await expect(page.locator('body')).toContainText(/kasutajanimi on juba/i);
+
 });
