@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+/**
+* Stsenaarium: Väljalogimine
+* ​​
+* Algolek: Kasutaja on registreeritud ja sisse logitud.
+* Toiming: Kasutaja klõpsab menüüs nupul „Logi sisse”.
+* Oodatav tulemus: Kasutaja suunatakse avalehele, kasutajanimi kaob ja kuvatakse nupp „Logi sisse”.
+*/
+
 test('logged in user can log out successfully', async ({ page }) => {
   const username = `logout${Date.now()}`;
   const password = 'Password123!';
@@ -24,4 +32,5 @@ test('logged in user can log out successfully', async ({ page }) => {
   await page.waitForTimeout(2000);
   
   await expect(page.getByText('Logi sisse')).toBeVisible();
+
 });
