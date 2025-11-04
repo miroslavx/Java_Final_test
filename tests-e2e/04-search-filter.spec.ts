@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+/**
+* Stsenaarium: Pitsa otsing ja filtreerimine restorani järgi
+*
+* Algolek: Kasutaja on pitsa otsingu lehel, kõik pitsad on kuvatud.
+* Toiming: Kasutaja otsib nime järgi pitsat "Hawaii", seejärel tühjendab otsingu ja filtreerib tulemused "Opera Pizza" järgi.
+* Oodatav tulemus: Pärast otsingut kuvatakse ainult "Hawaii" pitsa; pärast filtri rakendamist kuvatakse ainult "Opera Pizza" pitsad.
+*/
+
 test('searches for a specific pizza and filters by restaurant', async ({ page }) => {
   await page.goto('https://miroslavburdyga24.thkit.ee/content/PHP/content/Pitsa/pitsaotsing.php');
   await page.waitForTimeout(2000);
@@ -25,4 +33,5 @@ test('searches for a specific pizza and filters by restaurant', async ({ page })
   for (let i = 0; i < count; i++) {
     await expect(filteredRows.nth(i)).toContainText('Opera Pizza');
   }
+
 });
