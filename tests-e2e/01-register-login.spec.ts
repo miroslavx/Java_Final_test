@@ -1,4 +1,11 @@
 import { test, expect } from '@playwright/test';
+/**
+* Stsenaarium: Edukas registreerimine ja sisselogimine
+* ​​
+* Algolek: Kasutaja on registreerimislehel ja pole sisse logitud.
+* Toiming: Kasutaja täidab registreerimisvormi unikaalsete andmetega, esitab selle ja logib seejärel samade andmetega sisse.
+* Oodatav tulemus: Pärast registreerimist kuvatakse eduteade; pärast sisselogimist kuvatakse kasutajanimi ja nupp "Logi sisse"; pärast väljalogimist kuvatakse nupp "Logi sisse".
+*/
 
 test('successful registration and login shows username and logout option', async ({ page }) => {
   const username = `user${Date.now()}`;
@@ -26,4 +33,5 @@ test('successful registration and login shows username and logout option', async
   await page.goto('https://miroslavburdyga24.thkit.ee/content/PHP/content/Pitsa/logout.php');
   await page.waitForTimeout(2000);
   await expect(page.getByText('Logi sisse')).toBeVisible();
+
 });
